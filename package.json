@@ -1,0 +1,20 @@
+{
+  "name": "style-hoc",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build"
+  },
+  "author": "Jamie Hoeks <j@skeoh.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.7.1"
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
+}
