@@ -5,16 +5,33 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "prepare": "npm run build"
   },
   "author": "Jamie Hoeks <j@skeoh.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^22.1.2",
+    "jest": "^22.3.0",
+    "ts-jest": "^22.0.4",
     "typescript": "^2.7.1"
   },
   "files": [
     "src",
     "dist"
-  ]
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
 }
