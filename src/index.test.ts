@@ -71,6 +71,7 @@ describe('style()', () => {
 describe('interleave()', () => {
 	it('interleaves strings and numbers', () => {
 		expect(interleave(['foo', 'bar'], 123)).toEqual(['foo', 123, 'bar']);
+		expect(interleave(['foo', 'bar'], 123, 456)).toEqual(['foo', 123, 'bar', 456]);
 		expect(interleave(['foo', 'bar', 'baz'], 123, 456)).toEqual(['foo', 123, 'bar', 456, 'baz']);
 	});
 });
