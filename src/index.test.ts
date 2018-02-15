@@ -1,4 +1,4 @@
-import { style } from './index';
+import { style, interleave } from './index';
 
 describe('style()', () => {
 	it('is a function', () => {
@@ -50,5 +50,12 @@ describe('style()', () => {
 				foo: ${props => props.foo};
 			`;
 		}).not.toThrow();
+	});
+});
+
+describe('interleave()', () => {
+	it('interleaves strings and numbers', () => {
+		expect(interleave(['foo', 'bar'], 123)).toEqual(['foo', 123, 'bar']);
+		expect(interleave(['foo', 'bar', 'baz'], 123, 456)).toEqual(['foo', 123, 'bar', 456, 'baz']);
 	});
 });
