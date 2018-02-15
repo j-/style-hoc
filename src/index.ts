@@ -2,10 +2,6 @@ export type InterpolationScalar = string | number;
 export type InterpolationFunction<T> = (arg: T) => Interpolation<T>;
 export type Interpolation<T = void> = InterpolationScalar | InterpolationFunction<T>;
 
-export type ContextFunction<T> = (context: T) => InterpolationScalar[];
-export type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => ContextFunction<T>;
-export type StyleFunction = <T>() => TemplateFunction<T>;
-
 export type InterleaveFunction = <T>(strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => InterpolationScalar[];
 export const interleave: InterleaveFunction = <T>(strings, ...interpolations) => {
 	const result = [];
@@ -25,6 +21,9 @@ export const resolveInterpolation: ResolveInterpolationFunction = <T>(context, i
 		interpolation
 );
 
+export type ContextFunction<T> = (context: T) => InterpolationScalar[];
+export type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => ContextFunction<T>;
+export type StyleFunction = <T>() => TemplateFunction<T>;
 export const style: StyleFunction = <T = {}>(/* Extensions will go here */): TemplateFunction<T> => (
 	(strings, ...interpolations) => (context) => interpolations.map((interpolation) => (
 		resolveInterpolation(context, interpolation)
