@@ -19,7 +19,7 @@ export const resolveInterpolation = <T>(context: T, interpolation: Interpolation
 );
 
 export const style: StyleFunction = <T = {}>(/* Extensions will go here */): TemplateFunction<T> => (
-	(strings, ...interpolations) => (context: T) => interpolations.map((interpolation) => (
+	(strings, ...interpolations) => (context) => interpolations.map((interpolation) => (
 		resolveInterpolation(context, interpolation)
 	))
 );
