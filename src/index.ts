@@ -7,9 +7,9 @@ export type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...
 export type StyleFunction = <T>() => TemplateFunction<T>;
 
 export const interleave = <T>(strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => (
-	interpolations.reduce((result, interpolation, i) => (
-		result.concat(interpolation, strings[i + 1] as string)
-	), [strings[0]] as Interpolation<T>[])
+	interpolations.reduce<Interpolation<T>[]>((result, interpolation, i) => (
+		result.concat(interpolation, strings[i + 1])
+	), [strings[0]])
 );
 
 export const resolveInterpolation = <T>(context: T, interpolation: Interpolation<T>): InterpolationScalar => (
