@@ -66,6 +66,18 @@ describe('style()', () => {
 			const result = fn(props);
 		}).not.toThrow();
 	});
+
+	it('will return resolved interpolations', () => {
+		interface FooProps {
+			foo: string;
+		}
+		const fn = style<FooProps>()`foo:${props => props => props => props.foo};`;
+		const props: FooProps = {
+			foo: 'bar',
+		};
+		const result = fn(props);
+		expect(result).toEqual(['foo:', 'bar', ';']);
+	});
 });
 
 describe('interleave()', () => {
