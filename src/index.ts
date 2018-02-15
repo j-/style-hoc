@@ -6,7 +6,8 @@ export type ContextFunction<T> = (context: T) => InterpolationScalar[];
 export type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => ContextFunction<T>;
 export type StyleFunction = <T>() => TemplateFunction<T>;
 
-export const interleave = <T>(strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]): InterpolationScalar[] => {
+export type InterleaveFunction = <T>(strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => InterpolationScalar[];
+export const interleave: InterleaveFunction = <T>(strings, ...interpolations) => {
 	const result = [];
 	for (let i = 0; i < strings.length; i++) {
 		result.push(strings[i]);
