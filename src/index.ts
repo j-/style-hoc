@@ -1,10 +1,10 @@
 type InterpolationScalar = string | number;
-type InterpolationFunction<P> = (arg: P) => Interpolation<P>;
-export type Interpolation<P = void> = InterpolationScalar | InterpolationFunction<P>;
+type InterpolationFunction<T> = (arg: T) => Interpolation<T>;
+export type Interpolation<T = void> = InterpolationScalar | InterpolationFunction<T>;
 
-type TemplateFunction<P> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<P>[]) => void;
-type StyleFunction = <P>() => TemplateFunction<P>;
+type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => void;
+type StyleFunction = <T>() => TemplateFunction<T>;
 
-export const style: StyleFunction = <P = {}>(/* Extensions will go here */): TemplateFunction<P> => (
+export const style: StyleFunction = <T = {}>(/* Extensions will go here */): TemplateFunction<T> => (
 	(strings, ...interpolations) => {/* Function logic will go here */}
 );
