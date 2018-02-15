@@ -25,7 +25,7 @@ export type ContextFunction<T> = (context: T) => InterpolationScalar[];
 export type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => ContextFunction<T>;
 export type StyleFunction = <T>() => TemplateFunction<T>;
 export const style: StyleFunction = <T = {}>(/* Extensions will go here */): TemplateFunction<T> => (
-	(strings, ...interpolations) => (context) => interpolations.map((interpolation) => (
+	(strings, ...interpolations) => (context) => interleave(strings, ...interpolations.map((interpolation) => (
 		resolveInterpolation(context, interpolation)
-	))
+	)))
 );
