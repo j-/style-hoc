@@ -18,7 +18,8 @@ export const interleave: InterleaveFunction = <T>(strings, ...interpolations) =>
 	return result;
 };
 
-export const resolveInterpolation = <T>(context: T, interpolation: Interpolation<T>): InterpolationScalar => (
+export type ResolveInterpolationFunction = <T>(context: T, interpolation: Interpolation<T>) => InterpolationScalar;
+export const resolveInterpolation: ResolveInterpolationFunction = <T>(context, interpolation) => (
 	typeof interpolation === 'function' ?
 		resolveInterpolation(context, interpolation(context)) :
 		interpolation
