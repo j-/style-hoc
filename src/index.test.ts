@@ -1,4 +1,4 @@
-import { style, interleave } from './index';
+import { style, interleave, resolveInterpolation } from './index';
 
 describe('style()', () => {
 	it('is a function', () => {
@@ -51,11 +51,48 @@ describe('style()', () => {
 			`;
 		}).not.toThrow();
 	});
+
+	it('can be executed with a context', () => {
+		expect(() => {
+			interface FooProps {
+				foo: string;
+			}
+			const fn = style<FooProps>()`
+				foo: ${props => props.foo};
+			`;
+			const props: FooProps = {
+				foo: 'bar',
+			};
+			const result = fn(props);
+		}).not.toThrow();
+	});
 });
 
 describe('interleave()', () => {
 	it('interleaves strings and numbers', () => {
 		expect(interleave(['foo', 'bar'], 123)).toEqual(['foo', 123, 'bar']);
 		expect(interleave(['foo', 'bar', 'baz'], 123, 456)).toEqual(['foo', 123, 'bar', 456, 'baz']);
+	});
+});
+
+describe('resolveInterpolation()', () => {
+	it('ignores scalar values', () => {
+		const context = {};
+		expect(resolveInterpolation<typeof context>({}, 'foo')).toBe('foo');
+		expect(resolveInterpolation<typeof context>({}, 123)).toBe(123);
+	});
+
+	it('does not need a context', () => {
+		expect(resolveInterpolation(undefined, 'foo')).toBe('foo');
+		expect(resolveInterpolation(null, 'foo')).toBe('foo');
+	});
+
+	it('resolves a single level of nesting', () => {
+		expect(resolveInterpolation({ x: 'foo' }, (props) => props.x)).toBe('foo');
+		expect(resolveInterpolation({ x: 'bar' }, (props) => props.x)).toBe('bar');
+	});
+
+	it('resolves a multiple levels of nesting', () => {
+		expect(resolveInterpolation({ x: 'foo' }, (props) => (props) => (props) => props.x)).toBe('foo');
 	});
 });
