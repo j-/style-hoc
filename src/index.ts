@@ -1,10 +1,10 @@
-type InterpolationScalar = string | number;
-type InterpolationFunction<T> = (arg: T) => Interpolation<T>;
+export type InterpolationScalar = string | number;
+export type InterpolationFunction<T> = (arg: T) => Interpolation<T>;
 export type Interpolation<T = void> = InterpolationScalar | InterpolationFunction<T>;
 
-type ContextFunction<T> = (context: T) => InterpolationScalar[];
-type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => ContextFunction<T>;
-type StyleFunction = <T>() => TemplateFunction<T>;
+export type ContextFunction<T> = (context: T) => InterpolationScalar[];
+export type TemplateFunction<T> = (strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => ContextFunction<T>;
+export type StyleFunction = <T>() => TemplateFunction<T>;
 
 export const interleave = <T>(strings: string[] | TemplateStringsArray, ...interpolations: Interpolation<T>[]) => (
 	interpolations.reduce((result, interpolation, i) => (
